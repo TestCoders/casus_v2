@@ -3,9 +3,9 @@ from typing import Union
 
 from jose import jwt
 
-from auth.config import password_context, SECRET_KEY, ALGORITHM
-from db.documents import UserDocument
-from db.queries import get_user
+from app.auth.config import password_context, SECRET_KEY, ALGORITHM
+from app.db.documents import UserDocument
+from app.db.queries import get_user
 
 
 def verify_password(password: str, hashed_password: str) -> bool:

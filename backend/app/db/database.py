@@ -4,7 +4,7 @@ import os
 from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from db.documents import MovieDocument, UserDocument
+from app.db.documents import MovieDocument, UserDocument
 
 
 async def init_db():

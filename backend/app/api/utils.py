@@ -3,10 +3,10 @@ from typing import Annotated
 from fastapi import Depends, status, HTTPException
 from jose import JWTError
 
-from auth.config import oauth2_scheme
-from auth.models import TokenData, User
-from auth.utils import decode_jwt
-from db.queries import get_user
+from app.auth.config import oauth2_scheme
+from app.auth.models import TokenData, User
+from app.auth.utils import decode_jwt
+from app.db.queries import get_user
 
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):

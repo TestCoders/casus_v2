@@ -1,6 +1,6 @@
 from beanie.odm.operators.find.evaluation import RegEx
 
-from db.documents import MovieDocument, UserDocument
+from app.db.documents import MovieDocument, UserDocument
 
 
 async def get_movie_by_id(movie_id: str) -> MovieDocument | None:
@@ -41,7 +41,7 @@ async def get_user(username: str) -> UserDocument:
 
 
 async def create_user(username: str, password: str) -> UserDocument:
-    from auth.utils import get_password_hash
+    from app.auth.utils import get_password_hash
 
     document = UserDocument(
         username=username,

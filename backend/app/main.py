@@ -4,10 +4,10 @@ import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from api.routes.auth import auth_api_router
-from api.routes.movies import movie_api_router
-from api.routes.users import user_api_router
-from db.database import init_db
+from app.api.routes.movies import movie_api_router
+from app.api.routes.users import user_api_router
+from app.api.routes.auth import auth_api_router
+from app.db.database import init_db
 
 app = FastAPI()
 app.include_router(auth_api_router)
