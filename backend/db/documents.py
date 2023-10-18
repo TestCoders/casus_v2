@@ -1,5 +1,5 @@
 import pymongo
-from beanie import Document
+from beanie import Document, Indexed
 
 
 class MovieDocument(Document):
@@ -48,3 +48,14 @@ class MovieDocument(Document):
                 "trailer": "",
             }
         }
+
+
+class UserDocument(Document):
+    username: Indexed(str, unique=True)
+    admin: bool
+    disabled: bool = False
+    favorites: dict[str, bool]
+    hashed_password: str
+
+    class Settings:
+        name = "users"
