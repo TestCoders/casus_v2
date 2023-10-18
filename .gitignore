@@ -1,0 +1,6 @@
+# Ignore data dir used by docker volumes
+data
+
+# Keep .keep in data/db
+!data/db/.keep
+
