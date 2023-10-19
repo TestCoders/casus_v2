@@ -3,11 +3,12 @@
 import Link from "next/link";
 import {useDataStore} from "@/lib/store";
 import {Button, buttonVariants} from "@/components/ui/button";
+import {useRouter} from "next/navigation";
 
 
 export function UserButton() {
-    const signedIn = useDataStore((state) => state.signedIn);
-    const signOut = useDataStore((state) => state.signOut)
+    const [signedIn, signOut] = useDataStore((state) => [state.signedIn, state.signOut]);
+    const router = useRouter();
 
     if (signedIn) {
         return (
@@ -24,9 +25,9 @@ export function UserButton() {
 
     return (
         <div>
-            <Link href={"/auth/sign-in"} className={buttonVariants({size: "default", variant: "default"})}>
+            <Button onClick={() => router.push("/auth/sign-in")} >
                 Sign in
-            </Link>
+            </Button>
         </div>
     )
 }
