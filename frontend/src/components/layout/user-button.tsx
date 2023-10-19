@@ -8,7 +8,6 @@ import {Button, buttonVariants} from "@/components/ui/button";
 export function UserButton() {
     const signedIn = useDataStore((state) => state.signedIn);
     const signOut = useDataStore((state) => state.signOut)
-    console.log(signedIn)
 
     if (signedIn) {
         return (

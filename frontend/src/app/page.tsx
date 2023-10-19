@@ -58,8 +58,10 @@ export default function HomePage() {
                 </p>
             </section>
         </section>
-          <YouTubePlayer videoID={"cvDxko2Zm0Q"} />
       </section>
+        <div className={"w-full flex justify-center"}>
+            <YouTubePlayer videoID={"cvDxko2Zm0Q"} />
+        </div>
     </div>
   );
 }

@@ -4,26 +4,22 @@ import {HorizontalView} from "@/components/content/movies";
 import {useDataStore} from "@/lib/store";
 import useSWR from "swr";
 
+const fetchMovies = async () => {
+    const response = await fetch("http://localhost:8000/api/movies", {
+        method: "GET",
+        credentials: "include",
+    });
+
+    return await response.json() as Movie[];
+}
+
 export default function MoviesPage() {
-    const signedIn = useDataStore((state) => state.signedIn)
-    const fetchMovies = async () => {
-        const response = await fetch("http://localhost:8000/api/movies", {
-            method: "GET",
-            credentials: "include",
-        });
-
-        return await response.json() as Movie[];
-    }
-
+    const [signedIn, favorites] = useDataStore((state) => [state.signedIn, state.favorites])
     const {data} = useSWR("movies", fetchMovies, {
         suspense: true,
     });
-    const favorites = useDataStore((state) => state.favorites);
 
-    let favoriteMovies: Movie[] = [];
-    if (favorites.get !== undefined) {
-        favoriteMovies = data.filter(movie => !!favorites?.get(movie.imdb));
-    }
+    const favoriteMovies: Movie[] = data.filter(movie => !!favorites[movie.imdb]);
 
     return (
         <>

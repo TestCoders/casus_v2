@@ -3,16 +3,15 @@ import {persist} from "zustand/middleware";
 import {type Store} from "@/lib/store/types";
 
 export const useDataStore = create<Store>()(persist((set, get) => ({
-    favorites: new Map(),
+    favorites: {},
+    isFavorite: (key: string) => {
+        return get().favorites?.[key] ?? false
+    },
     like: (key: string) => set((state) => {
-        const newFavorites = new Map(state.favorites);
-        newFavorites.set(key, true)
-        return {favorites: newFavorites}
+        return {favorites: {...state.favorites, [key]: true}}
     }),
     dislike: (key: string) => set((state) => {
-        const newFavorites = new Map(state.favorites);
-        newFavorites.set(key, false)
-        return {favorites: newFavorites}
+        return {favorites: {...state.favorites, [key]: false}}
     }),
     fetch: async () => {
         const response = await fetch("http://localhost:8000/api/users/current/favorites", {credentials: "include"});
@@ -22,13 +21,13 @@ export const useDataStore = create<Store>()(persist((set, get) => ({
         }
 
         const data = await response.json() as string[];
-        const map = new Map();
+        const newFavorites: Record<string, boolean> = {}
 
         for (const key of data) {
-            map.set(key, true)
+            newFavorites[key] = true;
         }
 
-        return set({favorites: map})
+        return set({favorites: {...get().favorites, ...newFavorites}})
     },
 
     signedIn: false,
@@ -49,6 +48,7 @@ export const useDataStore = create<Store>()(persist((set, get) => ({
             return
         }
 
+        // Fetch favorites
         await get().fetch();
 
         return set(() => ({signedIn: true}))

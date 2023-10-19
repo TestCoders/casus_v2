@@ -10,7 +10,6 @@ import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, Form
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {useDataStore} from "@/lib/store";
-import {useRouter} from "next/navigation";
 
 const formSchema = z.object({
     username: z.string().min(2, {
@@ -27,8 +26,6 @@ export function SignInForm() {
             password: "",
         }
     });
-    const router = useRouter();
-    const signedIn = useDataStore((state) => state.signedIn)
     const signIn = useDataStore((state) => state.signIn);
     const {toast} = useToast();
 
@@ -38,8 +35,6 @@ export function SignInForm() {
         formData.append("password", values.password);
 
         await signIn(formData, toast);
-
-        if (signedIn) router.push("/");
     }
 
     return (

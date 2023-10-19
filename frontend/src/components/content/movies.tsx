@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import {useDataStore} from "@/lib/store";
+import {cn} from "@/lib/utils";
 
 function HeartIcon(props: { filled: boolean }) {
     if (props.filled) {
@@ -24,16 +25,10 @@ function HeartIcon(props: { filled: boolean }) {
     )
 }
 
-function FavoriteButton(props: { imdb: string }) {
-    const favorites = useDataStore((state) => state.favorites);
-    const like = useDataStore((state) => state.like);
-    const dislike = useDataStore((state) => state.dislike);
-
-    let isFavorite: boolean | null = null;
-
-    if (favorites.get !== undefined) {
-        isFavorite = !!favorites.get(props.imdb)
-    }
+export function FavoriteButton(props: { imdb: string, className?: string }) {
+    const checkIfFavorite = useDataStore((state) => state.isFavorite);
+    const [like, dislike] = useDataStore((state) => [state.like, state.dislike]);
+    const isFavorite = checkIfFavorite(props.imdb);
 
     const onClick = async () => {
         if (isFavorite) {
@@ -50,7 +45,7 @@ function FavoriteButton(props: { imdb: string }) {
     }
 
     return (
-        <button data-testid={`favorite-${props.imdb}`} onClick={onClick} className={"bg-gray-400/70 p-2 rounded-lg"}>
+        <button data-testid={`favorite-${props.imdb}`} onClick={onClick} className={cn("bg-gray-400/70 p-2 rounded-lg", props.className)}>
             <HeartIcon filled={isFavorite}/>
         </button>
     )
@@ -72,7 +67,7 @@ function MovieCard({movie}: { movie: Movie }) {
             <div className={"rounded-lg overflow-hidden"}>
                 <Image src={movie.image} alt={movie.title} height={"225"} width={"150"}/>
             </div>
-            <h3 className={"truncate"}>{movie.title}</h3>
+            <Link href={`/movies/${movie.imdb}`} className={"block truncate hover:underline"}>{movie.title}</Link>
             <div className={"text-gray-400 text-sm"}>{movie.year}</div>
         </div>
     )
