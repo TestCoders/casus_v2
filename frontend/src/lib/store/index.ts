@@ -60,7 +60,7 @@ export const useDataStore = create<Store>()(persist((set, get) => ({
         });
 
         if (response.status === 204) {
-            return set({signedIn: false})
+            return set({signedIn: false, favorites: {}})
         }
     },
 }),
