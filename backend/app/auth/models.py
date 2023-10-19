@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 class Token(BaseModel):
     access_token: str
+    access_token_expires: int
     token_type: str
 
 

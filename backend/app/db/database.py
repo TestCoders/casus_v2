@@ -11,7 +11,7 @@ async def init_db():
     """
     Initialises the Mongo database with an Async motor client
     """
-    dsn = os.getenv("MONGO_URL", "mongodb://localhost:27017")
+    dsn = os.getenv("MONGO_DSN", "mongodb://localhost:27017")
 
     client = AsyncIOMotorClient(dsn)
     await init_beanie(database=client.casus, document_models=[MovieDocument, UserDocument])

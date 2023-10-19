@@ -20,12 +20,13 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: ./backend/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     environment:
       # Change this if you want to, but keep it consisent: openssl rand -hex 32
       SECRET_KEY: 0feef9fb6d7360f1edd03ee62fd5042825851330948c94c15448f741e48aa046
+      MONGO_DSN: mongodb://mongo:27017
     depends_on:
       - mongo
 
