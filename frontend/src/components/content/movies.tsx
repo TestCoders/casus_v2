@@ -28,7 +28,12 @@ function FavoriteButton(props: { imdb: string }) {
     const favorites = useDataStore((state) => state.favorites);
     const like = useDataStore((state) => state.like);
     const dislike = useDataStore((state) => state.dislike);
-    const isFavorite = !!favorites.get(props.imdb)
+
+    let isFavorite: boolean | null = null;
+
+    if (favorites.get !== undefined) {
+        isFavorite = !!favorites.get(props.imdb)
+    }
 
     const onClick = async () => {
         if (isFavorite) {
@@ -38,6 +43,10 @@ function FavoriteButton(props: { imdb: string }) {
             await fetch(`http://localhost:8000/api/users/current/favorites/${props.imdb}`, {method: "PUT", credentials: "include"})
             like(props.imdb);
         }
+    }
+
+    if (isFavorite === null) {
+        return null;
     }
 
     return (
