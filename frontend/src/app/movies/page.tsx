@@ -15,9 +15,11 @@ const fetchMovies = async () => {
 
 export default function MoviesPage() {
     const [signedIn, favorites] = useDataStore((state) => [state.signedIn, state.favorites])
-    const {data} = useSWR("movies", fetchMovies, {
-        suspense: true,
-    });
+    const {data, isLoading} = useSWR("movies", fetchMovies);
+
+    if (isLoading || !data) {
+        return null; // TODO: skeleton
+    }
 
     const favoriteMovies: Movie[] = data.filter(movie => !!favorites[movie.imdb]);
 
