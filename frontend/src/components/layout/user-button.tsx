@@ -1,8 +1,7 @@
 "use client"
 
-import Link from "next/link";
 import {useDataStore} from "@/lib/store";
-import {Button, buttonVariants} from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
 
 
@@ -12,22 +11,20 @@ export function UserButton() {
 
     if (signedIn) {
         return (
-            <div>
-                <Button variant={"default"} size={"default"} onClick={async () => {
-                    await signOut()
-                }}>
-                    Sign out
-                </Button>
-            </div>
+            <Button variant={"default"} size={"default"} onClick={async () => {
+                await signOut()
+            }}
+                    suppressHydrationWarning
+            >
+                Sign out
+            </Button>
 
         )
     }
 
     return (
-        <div>
-            <Button onClick={() => router.push("/auth/sign-in")} >
-                Sign in
-            </Button>
-        </div>
+        <Button onClick={() => router.push("/auth/sign-in")} suppressHydrationWarning>
+            Sign in
+        </Button>
     )
 }
