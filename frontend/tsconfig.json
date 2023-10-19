@@ -25,6 +25,7 @@
   "include": [
     ".eslintrc.cjs",
     "next-env.d.ts",
+    "src/types/server.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",

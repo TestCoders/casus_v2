@@ -1,37 +1,65 @@
-import Link from "next/link";
+import {YouTubePlayer} from "@/components/content/video";
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
-        </div>
-      </div>
-    </main>
+    <div className={"w-full"}>
+      <section data-testid={"heading-text"} className={"w-full text-center space-y-4 mt-4 md:mt-12"}>
+        <h1 className={"tracking-tight font-bold text-4xl sm:text-7xl"}>The IMTDb casus</h1>
+        <section className={"text-base max-w-md font-light mx-auto text-left space-y-4"}>
+            <h2 className={"font-bold text-2xl"}>Welcome to the casus!</h2>
+            <p>
+                This website has some functionality that you can use to show off your Test Automation skills.
+                You can create a new account, or sign in to any existing accounts that have been made available through the
+                `seed` command.
+            </p>
+            <p>
+                If you haven&apos;t run the seed command yet, please do so now since it will also load
+                movies into the database.
+            </p>
+            <section className={"space-y-2"}>
+                <h3 className={"text-xl font-bold"}>Docker - seed</h3>
+                <p>
+                    If you&apos;re running this through <span className={"font-mono"}>docker-compose</span>, open your
+                    terminal and run <span className={"font-mono"}>docker ps</span> to get the name of the <strong>backend </strong>
+                    container, usually it is <strong>casus_v2_backend_1</strong>. Use that name to run the following command:
+                </p>
+                <p>
+                    <span className={"font-mono"}>docker exec -it casus_v2_backend_1 python -m app.scripts.seed</span>
+                </p>
+            </section>
+            <section className={"space-y-2"}>
+                <h3 className={"text-xl font-bold"}>Manual - seed</h3>
+                <p>
+                    If you&apos;ve started both the frontend and backend services manually, and made sure
+                    you have a mongodb instance running and available at <span className={"font-mono"}>http://localhost:27017 </span>
+                    then you can run <span className={"font-mono"}>python -m app.scripts.seed</span> from inside the backend
+                    directory. Please make sure you&apos;ve installed all the necessary requirements.
+                </p>
+            </section>
+            <section className={"space-y-2"}>
+                <h3 className={"text-xl font-bold"}>Ready to go</h3>
+                <p>
+                    Have a look around the website, see if you can sign in, sign out and notice the changes to the UI
+                    when doing so. There are no &apos;business requirements&apos; or &apos;user stories&apos;. If you want
+                    to, you can write them yourself.
+                </p>
+                <p>
+                    Some core functionalities are:
+                </p>
+                <ul className={"list-disc list-inside"}>
+                    <li>Sign in</li>
+                    <li>Sign out</li>
+                    <li>Visit movies from the /movies page</li>
+                    <li>Add and remove movies from favorites</li>
+                    <li>Search (NotYetImplemented)</li>
+                </ul>
+                <p>
+                    That&apos;s it. Since you&apos;ve made it this far, please enjoy this Adventure Time intro
+                </p>
+            </section>
+        </section>
+          <YouTubePlayer videoID={"cvDxko2Zm0Q"} />
+      </section>
+    </div>
   );
 }
